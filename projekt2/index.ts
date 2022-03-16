@@ -8,7 +8,7 @@ class Note{
   title:string
   content:string
   createDate = date.toISOString()
-
+  tags:string[]
 }
 
 
