@@ -3,6 +3,16 @@ import {Request, Response} from 'express'
 
 const app = express()
 
+class Note{
+  id:number = Date.now()
+  title:string
+  content:string
+  createDate = date.toISOString()
+
+}
+
+
+
 app.use(express.json())
 
 app.get('/', function (req: Request, res: Response) {
