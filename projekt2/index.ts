@@ -3,24 +3,77 @@ import {Request, Response} from 'express'
 
 const app = express()
 
-class Note{
-  id:number = Date.now()
-  title:string
-  content:string
-  createDate = date.toISOString()
-  tags:string[]
-}
-
-
-
 app.use(express.json())
 
-app.get('/', function (req: Request, res: Response) {
-  res.send('GET Hello World')
+interface Note {
+  id?: number
+  title: string;
+  content: string;
+  createDate: string;
+  tags: string[];
+}
+
+const notes : Note[] =[
+  {
+    id: 1,
+    title: "test",
+    content: "this is a test note",
+    createDate: "rndDate",
+    tags: ["tag1"]
+  }
+]
+
+app.get('/:note/:id', function (req: Request, res: Response) {
+  
+  const id = parseInt(req.params.id)
+
+  if(notes.findIndex(note=>note.id == id)){
+    res.sendStatus(200).send(notes.findIndex(note=>note.id == id))
+  }else {
+    res.sendStatus(404).send("no object")
+  }
 })
-app.post('/', function (req: Request, res: Response) {
-  console.log(req.body) // e.x. req.body.title 
-  res.status(200).send('POST Hello World')
-})
+
+app.post('/:note', function (req: Request, res: Response) {
+  const data = new Date().toISOString()
+  const id = req.body.id == null? Date.now(): req.body.id
+  const newNote : Note =
+  {
+    id : id, 
+    title : req.body.title,
+    content : req.body.content,
+    createDate : data,
+    tags : req.body.tags
+  }
+  if(newNote.title!==null && newNote.content!==null)
+  {
+    notes.push(newNote);
+    console.log(req.body) 
+    res.sendStatus(201).send(newNote.id)
+  }else{
+    res.sendStatus(400).send("no title or content")
+  }
+  })
+
+  app.put('/note/:id', function (req: Request, res: Response) {
+    const id = parseInt(req.body.id)
+    if(notes.findIndex(note=>note.id == id)){
+      notes[notes.findIndex(note=>note.id == id)] = req.body;
+      res.sendStatus(200).send(notes.findIndex(note=>note.id == id))
+    }else{
+      res.sendStatus(404).send("no object")
+    }
+  })
+  
+  app.delete('/note/:id', function(req: Request, res: Response){
+    const id = parseInt(req.body.id)
+    if(notes.find(note=>note.id == id)){
+      res.sendStatus(200).send(notes.findIndex(note=>note.id == id))
+      notes.splice(notes.findIndex(note=>note.id == id),1)
+    }else{
+      res.sendStatus(404).send("no object")
+    }
+  })
+
 
 app.listen(3000)
