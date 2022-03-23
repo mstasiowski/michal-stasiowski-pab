@@ -1,6 +1,29 @@
 import express from 'express'
 import {Request, Response} from 'express'
 
+/*
+inteface Note {
+  tags: Tag[]
+  
+}
+interface Tag {
+  id?: number;
+  name: string;
+}
+
+const a: Note = {
+  tags: [{name: 'wsei', id: 12}, {name: 'poniedzialek'}]
+}
+
+const tags = req.body.tags
+tags.forEach(element => {
+
+});
+const str = 'some string'
+const strToLower = str.toLowerCase();
+
+*/
+
 const app = express()
 
 app.use(express.json())
@@ -22,6 +45,22 @@ const notes : Note[] =[
     tags: ["tag1"]
   }
 ]
+
+interface Tag {
+  id?: number
+  name: string;
+
+
+}
+
+const Tag : Tag[] =[
+  {
+    id: 1,
+    name: "test"
+  }
+]
+
+
 
 app.get('/:note/:id', function (req: Request, res: Response) {
   
@@ -74,6 +113,5 @@ app.post('/:note', function (req: Request, res: Response) {
       res.sendStatus(404).send("no object")
     }
   })
-
 
 app.listen(3000)
