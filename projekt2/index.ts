@@ -118,7 +118,7 @@ app.delete('/note/:id', function(req: Request, res: Response){
 
 interface Tag {
   id?: number
-  name: string;
+  name: string
 
 
 }
@@ -183,4 +183,4 @@ app.post('/:note', function (req: Request, res: Response) {
     }
   })
 
-app.listen(3000)
+app.listen(3000);
