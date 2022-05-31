@@ -5,24 +5,36 @@ var app = (0, express_1["default"])();
 app.use(express_1["default"].json());
 var PORT = 3000;
 var date1 = new Date();
-date1.toISOString();
-var notes = {
-    id: 1,
-    title: "test",
-    content: "content1",
-    createDate: date1.toISOString(),
-    tags: ["pierwszy", "test1"]
-};
+var notes = [
+    {
+        id: 1,
+        title: "test",
+        content: "content1",
+        createDate: date1.toISOString(),
+        tags: ["pierwszy", "test1"]
+    },
+];
 app.post('/note', function (req, res) {
+    var note = req.body;
     var id = req.body.id;
-    if (id == null) {
-        id = Date.now();
+    var date1 = new Date().toISOString();
+    var createNote;
+    {
+        id: id;
+        title: req.body.title;
+        content: req.body.content;
+        createDate: Date;
+        tags: req.body.tags;
     }
-    else {
-        id = req.body.id;
-    }
-    console.log("post method note");
+    notes.push(createNote);
+    res.send("Note with id:  ".concat(note.id, " added to the database"));
 });
+app.get('/note/:id', function (req, res) {
+    var id = parseInt(req.body.id);
+    var foundNote = notes.find(function (note) { return note.id === id; });
+    res.send(foundNote);
+});
+app.listen(PORT);
 // interface Note {
 //   id?: number
 //   title: string
