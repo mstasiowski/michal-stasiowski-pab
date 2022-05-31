@@ -3,6 +3,15 @@ import { Request,Response, NextFunction} from 'express';
 import Joi from 'joi';
 import { IDirector } from '../models/Director';
 import { IMovie } from '../models/Movie';
+import {IUser} from '../models/User';
+import {IGenre} from '../models/Genre';
+import {IProduction} from '../models/Production';
+import {IScriptwriter} from '../models/Scriptwriter';
+
+
+
+
+
 
 
 
@@ -55,10 +64,13 @@ export const Schemas ={
             director: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
             script: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
             premiere: Joi.string().required()
-        }),
-        user:{
-            
-        }
-
+        })
     },
+    user:{
+        create:Joi.object<IUser>({
+         username: Joi.string().required().min(4),   
+         password: Joi.string().required().min(3),   
+         email: Joi.string().required().email()
+        })
+    }
 }

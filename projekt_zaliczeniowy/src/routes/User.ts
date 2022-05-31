@@ -1,10 +1,12 @@
 import express from 'express';
 import controller from '../controllers/User'
 import authenticateToken, { checkAdmin } from '../middleware/AuthenticateJWT';
+import { Schemas, ValidateSchema } from '../middleware/ValidateSchema';
+
 
 const router = express();
 
-router.post('/create', controller.createUser);
+router.post('/create',ValidateSchema(Schemas.user.create), controller.createUser);
 router.post('/login', controller.login);
 router.post('/loginrefresh',authenticateToken, controller.refreshtoken);
 router.delete('/logout', controller.logout);
