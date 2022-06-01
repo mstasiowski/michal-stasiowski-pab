@@ -113,6 +113,7 @@ const logout = (req: Request, res: Response, next:NextFunction) =>{
         const {refreshtoken} = req.body;
         if(refreshtoken)
         {
+            //filter array refreshtokens and send back the same array but without this one refreshtoken
         let x = refreshtokens.filter(t =>t!== refreshtoken);
             refreshtokens.fill(x)
          res.status(200).json({message:"logout"});

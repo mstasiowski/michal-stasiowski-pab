@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "build": "rm -rf build/ && tsc",
+    "build": "npx nodemon ./server.ts",
     "start": "node build/server.js"
   },
   "keywords": [],

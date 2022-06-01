@@ -1,6 +1,0 @@
-hasloDb:IrEttFTVA0bsAjaV
-
-bezpieczny ciąg znaków dla tokena:
-
--node
--require('crypto').randomBytes(64).toString('hex')
